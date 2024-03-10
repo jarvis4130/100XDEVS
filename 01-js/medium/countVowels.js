@@ -5,8 +5,34 @@
   Once you've implemented the logic, test your code by running
 */
 
+// function countVowels(str) {
+
+//   const arr=['a','e','i','o','u'];
+//   const Str=str.toLowerCase().split('')
+//   let ans=0;
+//   Str.forEach((i)=>{
+//     arr.map((el)=>{
+//       if(el===i){
+//         ans+=1;
+//       }
+//     })
+//   })
+//   return ans;
+// }
+
 function countVowels(str) {
-    // Your code here
+  const vowels = ['a', 'e', 'i', 'o', 'u'];
+  const lowercasedStr = str.toLowerCase();
+
+  let count = 0;
+
+  for (const char of lowercasedStr) {
+    if (vowels.includes(char)) {
+      count++;
+    }
+  }
+
+  return count;
 }
 
 module.exports = countVowels;
