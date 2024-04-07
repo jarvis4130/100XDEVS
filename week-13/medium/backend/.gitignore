@@ -1,0 +1,14 @@
+node_modules
+dist
+.wrangler
+.dev.vars
+.env
+
+# Change them to your taste:
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
+
+DATABASE_URL = "prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiYWQ5NThkZmQtNWQ4Yy00NzlhLThlNWUtNTJkYzY2MTU4MTM2IiwidGVuYW50X2lkIjoiZWI2ZTIxYzUyNDBlYWQ5MTk0ODExM2E4YTVmNGIxNzZhNGEwYzYwNDhjNDJmOGVlYmY2Y2ZmNTFhMjc2MmI2NSIsImludGVybmFsX3NlY3JldCI6ImM1ZmYzMzFkLTkwYWQtNGU0OC05Mzc3LTkyNGE4Mzg0ZGU5ZSJ9.y4Vdhut14cFA7aZSg6NX2kQ62RnCcLbEOkSbt3oqm78"
+JWT_SECRET="i know you will try to hack it but not able to decode it"
