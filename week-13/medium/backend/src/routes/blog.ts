@@ -20,6 +20,7 @@ blogRouter.use("/*", async (c, next) => {
     const user = await verify(authHeader, c.env.JWT_SECRET);
     if (user) {
       c.set("userId", user.id);
+      console.log(user.id)
       await next();
     } else {
       c.status(403);
@@ -44,7 +45,9 @@ blogRouter.post("/", async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
+
   const userId = c.get("userId");
+  console.log(userId)
 
   try {
     const blog = await prisma.blog.create({
@@ -94,11 +97,22 @@ blogRouter.get("/bulk", async (c) => {
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
 
+  const user=await prisma.user.findFirst({
+    where:{
+      id:"27ea8fbb-1074-45cc-b4a0-50cf3b9e17b0"
+    },
+    select:{
+      name:true
+    }
+  });
+  console.log(user)
+
   const blogs = await prisma.blog.findMany({
     select:{
       content:true,
       title:true,
       id:true,
+      authorId:true,
       author:{
         select:{
           name:true
@@ -106,6 +120,8 @@ blogRouter.get("/bulk", async (c) => {
       }
     }
   });
+
+  console.log(blogs)
 
   return c.json({ blogs });
 });

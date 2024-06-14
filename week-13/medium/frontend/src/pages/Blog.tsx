@@ -7,6 +7,7 @@ export const Blog = () => {
 
   const {id} =useParams()
   const {loading,blog}=useBlog({id :id || ""});
+  console.log(blog)
 
   if(loading || !blog){
     return <div className="h-screen flex flex-col justify-center">

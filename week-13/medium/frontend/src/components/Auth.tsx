@@ -2,12 +2,11 @@ import { SignupInput } from "@jarvis_4130/medium-common";
 import { ChangeEvent, useState } from "react";
 import AuthHeader from "./AuthHeader";
 import axios from "axios";
-import {BACKEND_URL} from '../config'
+import { BACKEND_URL } from "../config";
 import { useNavigate } from "react-router-dom";
 
 function Auth({ type }: { type: "signup" | "signin" }) {
-
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   const [postInputs, setPostInputs] = useState<SignupInput>({
     name: "",
@@ -15,15 +14,22 @@ function Auth({ type }: { type: "signup" | "signin" }) {
     password: "",
   });
 
-  async function sendRequest(){
-    try{
-      const res=await axios.post(`${BACKEND_URL}/api/v1/user/${type==='signup'? "signup" : "signin"}`,postInputs);
-      const jwt=res.data;
-      localStorage.setItem("token",jwt);
-      navigate('/blogs')
-    }
-    catch(e){
-      console.log(e)
+  async function sendRequest() {
+    try {
+      const res = await axios.post(
+        `${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`,
+        postInputs
+      );
+      let jwt;
+      if (type === "signup") {
+        jwt = res.data.jwt;
+      } else {
+        jwt = res.data;
+      }
+      localStorage.setItem("token", jwt);
+      navigate("/blogs");
+    } catch (e) {
+      console.log(e);
     }
   }
 
@@ -31,19 +37,21 @@ function Auth({ type }: { type: "signup" | "signin" }) {
     <div className="h-screen flex justify-center flex-col">
       <div className="flex justify-center">
         <div>
-          <AuthHeader type={type==='signup'? "signup" : "signin"} />
+          <AuthHeader type={type === "signup" ? "signup" : "signin"} />
           <div className=" mx-2 lg:mx-0 pt-4">
-            {type==='signup'? <Input
-              label="Name"
-              type={"text"}
-              placeholder="Atharva Adam..."
-              onChange={(e) =>
-                setPostInputs((c) => ({
-                  ...c,
-                  name: e.target.value,
-                }))
-              }
-            />:null}
+            {type === "signup" ? (
+              <Input
+                label="Name"
+                type={"text"}
+                placeholder="Atharva Adam..."
+                onChange={(e) =>
+                  setPostInputs((c) => ({
+                    ...c,
+                    name: e.target.value,
+                  }))
+                }
+              />
+            ) : null}
             <Input
               label="Email"
               placeholder="atharvaadam101010@gmail.com"

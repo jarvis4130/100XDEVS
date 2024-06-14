@@ -43,6 +43,6 @@ export const useBlogs = () => {
         setLoading(false)
     })
   },[])
-
+  console.log(blogs)
   return { loading, blogs };
 };
